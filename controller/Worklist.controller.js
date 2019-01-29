@@ -141,7 +141,18 @@ sap.ui.define([
 					var sQuery = oEvent.getParameter("query");
 
 					if (sQuery && sQuery.length > 0) {
-						oTableSearchState = [new Filter("Nickname", FilterOperator.Contains, sQuery)];
+						//oTableSearchState = [new Filter("Nickname", FilterOperator.Contains, sQuery)];
+						oTableSearchState = [new Filter({
+							filters: [
+								new Filter("Nickname", FilterOperator.Contains, sQuery),
+								new Filter("UserName", FilterOperator.Contains, sQuery),
+								new Filter("FirstName", FilterOperator.Contains, sQuery),
+								new Filter("LastName", FilterOperator.Contains, sQuery),
+								new Filter("EMail", FilterOperator.Contains, sQuery)
+							],
+							and: false,
+							caseSensitive: false
+						})];
 					}
 					this._applySearch(oTableSearchState);
 				}

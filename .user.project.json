@@ -1,0 +1,27 @@
+{
+  "run": [
+    {
+      "filePath": "/Component.js",
+      "previewMode": 0,
+      "dataMode": 0,
+      "workspace": "withoutWorkspace",
+      "ui5ActiveVersion": null,
+      "ui5VerSource": null,
+      "isDefaultVersion": 0,
+      "urlParameters": [
+        {
+          "paramName": "",
+          "paramValue": ""
+        }
+      ],
+      "hashParameter": "",
+      "backendSystem": [],
+      "_metadata": {
+        "id": 2871858,
+        "runnerId": "fiorirunner",
+        "displayName": "Mock Data",
+        "lastRunTimeStamp": 1548736537819
+      }
+    }
+  ]
+}

@@ -45,6 +45,15 @@
 					<Column id="nameColumn">
 						<Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
 					</Column>
+					<Column id="firstNameColumn">
+						<Text text="{i18n>tableFirstNameColumnTitle}" id="firstNameColumnTitle"/>
+					</Column>
+					<Column id="lastNameColumn">
+						<Text text="{i18n>tableLastNameColumnTitle}" id="lastNameColumnTitle"/>
+					</Column>
+					<Column id="emailColumn">
+						<Text text="{i18n>tableEmailColumnTitle}" id="emailColumnTitle"/>
+					</Column>
 				</columns>
 
 				<items>
@@ -55,6 +64,15 @@
 							<ObjectIdentifier
 								title="{Nickname}"
 								text="{UserName}"/>
+						</cells>
+						<cells>
+							<ObjectAttribute text="{FirstName}"/>
+						</cells>
+						<cells>
+							<ObjectAttribute text="{LastName}"/>
+						</cells>
+						<cells>
+							<ObjectAttribute text="{EMail}"/>
 						</cells>
 					</ColumnListItem>
 				</items>
