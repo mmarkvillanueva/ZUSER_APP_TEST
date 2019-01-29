@@ -1,27 +1,29 @@
-<edmx:Edmx
-    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
-    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
-    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
-    <edmx:DataServices m:DataServiceVersion="2.0">
-        <Schema
-            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZTEST_USER_ODATA_SRV" xml:lang="en" sap:schema-version="1">
-            <EntityType Name="User" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="UserName"/>
-                </Key>
-                <Property Name="UserName" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="User Name" sap:updatable="false"/>
-                <Property Name="FirstName" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="First name"/>
-                <Property Name="LastName" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Last name"/>
-                <Property Name="Nickname" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Nick Name"/>
-                <Property Name="EMail" Type="Edm.String" Nullable="false" MaxLength="241" sap:label="E-Mail Address"/>
-            </EntityType>
-            <EntityContainer Name="ZTEST_USER_ODATA_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
-                <EntitySet Name="UserSet" EntityType="ZTEST_USER_ODATA_SRV.User" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
-            </EntityContainer>
-            <atom:link
-                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZTEST_USER_ODATA_SRV/$metadata"/>
-                <atom:link
-                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZTEST_USER_ODATA_SRV/$metadata"/>
-                </Schema>
-            </edmx:DataServices>
-        </edmx:Edmx>
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema Namespace="ZTEST_USER_ODATA_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="User" sap:content-version="1">
+				<Key><PropertyRef Name="UserName"/></Key><Property Name="UserName" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="User Name" sap:updatable="false"/><Property Name="FirstName" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="First name"/><Property Name="LastName" Type="Edm.String" Nullable="false" MaxLength="40" sap:label="Last name"/><Property Name="Nickname" Type="Edm.String" Nullable="false" MaxLength="20" sap:label="Nick Name"/><Property Name="EMail" Type="Edm.String" Nullable="false" MaxLength="241" sap:label="E-Mail Address"/><NavigationProperty Name="ContactSet" Relationship="ZTEST_USER_ODATA_SRV.AssocContact" FromRole="FromRole_AssocContact"
+					ToRole="ToRole_AssocContact"/></EntityType>
+			<EntityType Name="Contact" sap:content-version="1">
+				<Key><PropertyRef Name="UserName"/><PropertyRef Name="Phone"/></Key><Property Name="UserName" Type="Edm.String" Nullable="false" MaxLength="12" sap:label="User Name" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Phone" Type="Edm.String" Nullable="false" MaxLength="30" sap:label="Telephone" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Type" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Phone Type" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/></EntityType>
+			<Association Name="AssocContact" sap:content-version="1"><End Type="ZTEST_USER_ODATA_SRV.User" Multiplicity="1" Role="FromRole_AssocContact"/><End Type="ZTEST_USER_ODATA_SRV.Contact" Multiplicity="*" Role="ToRole_AssocContact"/>
+				<ReferentialConstraint>
+					<Principal Role="FromRole_AssocContact"><PropertyRef Name="UserName"/></Principal>
+					<Dependent Role="ToRole_AssocContact"><PropertyRef Name="UserName"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="ZTEST_USER_ODATA_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet Name="UserSet" EntityType="ZTEST_USER_ODATA_SRV.User" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:content-version="1"/><EntitySet Name="ContactSet" EntityType="ZTEST_USER_ODATA_SRV.Contact" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:content-version="1"/>
+				<AssociationSet Name="AssocContactSet" Association="ZTEST_USER_ODATA_SRV.AssocContact" sap:creatable="false" sap:updatable="false"
+					sap:deletable="false" sap:content-version="1"><End EntitySet="UserSet" Role="FromRole_AssocContact"/><End EntitySet="ContactSet" Role="ToRole_AssocContact"/></AssociationSet>
+			</EntityContainer><atom:link rel="self" href="http://vhcalnplci.dummy.nodomain:8000/sap/opu/odata/SAP/ZTEST_USER_ODATA_SRV/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom"/><atom:link rel="latest-version" href="http://vhcalnplci.dummy.nodomain:8000/sap/opu/odata/SAP/ZTEST_USER_ODATA_SRV/$metadata"
+				xmlns:atom="http://www.w3.org/2005/Atom"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

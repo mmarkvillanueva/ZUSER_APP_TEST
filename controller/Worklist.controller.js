@@ -102,7 +102,8 @@ sap.ui.define([
 				var sPreviousHash = History.getInstance().getPreviousHash(),
 					oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
 
-				if (sPreviousHash !== undefined || !oCrossAppNavigator.isInitialNavigation()) {
+				//if (sPreviousHash !== undefined || !oCrossAppNavigator.isInitialNavigation()) {
+				if (sPreviousHash !== undefined) {
 					history.go(-1);
 				} else {
 					oCrossAppNavigator.toExternal({

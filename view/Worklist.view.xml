@@ -45,14 +45,17 @@
 					<Column id="nameColumn">
 						<Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
 					</Column>
-					<Column id="firstNameColumn">
+					<Column id="firstNameColumn" minScreenWidth="Tablet" demandPopin="false">
 						<Text text="{i18n>tableFirstNameColumnTitle}" id="firstNameColumnTitle"/>
 					</Column>
-					<Column id="lastNameColumn">
+					<Column id="lastNameColumn" minScreenWidth="Tablet" demandPopin="false">
 						<Text text="{i18n>tableLastNameColumnTitle}" id="lastNameColumnTitle"/>
 					</Column>
-					<Column id="emailColumn">
+					<Column id="emailColumn" minScreenWidth="Tablet" demandPopin="false">
 						<Text text="{i18n>tableEmailColumnTitle}" id="emailColumnTitle"/>
+					</Column>
+					<Column id="fullNameColumn" minScreenWidth="Tablet" demandPopin="true" visible="{device>/system/phone}">
+						<Text text="{i18n>tableFullNameColumnTitle}" id="fullNameColumnTitle"/>
 					</Column>
 				</columns>
 
@@ -73,6 +76,9 @@
 						</cells>
 						<cells>
 							<ObjectAttribute text="{EMail}"/>
+						</cells>
+						<cells>
+							<ObjectAttribute text="{FirstName} {LastName}"/>
 						</cells>
 					</ColumnListItem>
 				</items>

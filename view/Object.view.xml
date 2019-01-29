@@ -1,24 +1,39 @@
-<mvc:View
-	controllerName="com.dxc.test.controller.Object"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.m.semantic"
-	xmlns:footerbar="sap.ushell.ui.footerbar">
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" controllerName="com.dxc.test.controller.Object">
 
-	<semantic:FullscreenPage
-		id="page"
-		navButtonPress="onNavBack"
-		showNavButton="true"
-		title="{i18n>objectTitle}"
-		busy="{objectView>/busy}"
-		busyIndicatorDelay="{objectView>/delay}">
+	<semantic:FullscreenPage id="page" navButtonPress="onNavBack" showNavButton="true" title="{i18n>objectTitle}" busy="{objectView>/busy}" busyIndicatorDelay="{objectView>/delay}">
 
 		<semantic:content>
-			<ObjectHeader
-				id="objectHeader"
-				title="{Nickname}"
->
+			<ObjectHeader id="objectHeader" title="{Nickname}">
+			<attributes>
+			    <ObjectAttribute text="{UserName}" title="{i18n>objectUserName}"/>
+			    <ObjectAttribute text="{FirstName} {LastName}" title="{i18n>objectFullName}"/>
+			</attributes>
 			</ObjectHeader>
+
+			<Table id="table" width="auto" class="sapUiResponsiveMargin" items="{ContactSet}" noDataText="{worklistView>/tableNoDataText}" busyIndicatorDelay="{worklistView>/tableBusyDelay}" growing="true" growingScrollToLoad="true" updateFinished="onUpdateFinished">
+
+				<columns>
+					<Column id="typeColumn" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Type" id="typeColumnTitle"/>
+					</Column>
+					<Column id="phoneColumn" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Phone" id="phoneColumnTitle"/>
+					</Column>
+				</columns>
+
+				<items>
+					<ColumnListItem>
+						<cells>
+							<ObjectAttribute text="{Type}"/>
+						</cells>
+						<cells>
+							<ObjectAttribute text="{Phone}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+
+			</Table>
+
  		</semantic:content>
 
 		<semantic:sendEmailAction>
@@ -30,7 +45,7 @@
 		</semantic:shareInJamAction>
 
 		<semantic:saveAsTileAction>
-			<footerbar:AddBookmarkButton id ="shareTile" title="{objectView>/saveAsTileTitle}" />
+			<footerbar:AddBookmarkButton id="shareTile" title="{objectView>/saveAsTileTitle}"/>
 		</semantic:saveAsTileAction>
 
 	</semantic:FullscreenPage>
