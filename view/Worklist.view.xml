@@ -53,7 +53,8 @@
 						press="onPress">
 						<cells>
 							<ObjectIdentifier
-								title="{Nickname}"/>
+								title="{Nickname}"
+								text="{UserName}"/>
 						</cells>
 					</ColumnListItem>
 				</items>
