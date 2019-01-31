@@ -1,0 +1,1 @@
+{"type":"sap.web","builders":{"configs":{}},"runners":{"configs":{}},"attributes":{"sap.watt.common.setting":["{\"mockpreview\":{\"mockUri\":\"/sap/opu/odata/sap/ZTEST_USER_ODATA_SRV/\",\"metadataFilePath\":\"localService/metadata.xml\",\"loadJSONFiles\":true,\"loadCustomRequests\":false,\"mockRequestsFilePath\":\"\"}}"]},"description":"","mixinTypes":[]}
