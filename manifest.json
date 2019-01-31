@@ -39,10 +39,7 @@
 			"tablet": true,
 			"phone": true
 		},
-		"supportedThemes": [
-			"sap_hcb",
-			"sap_bluecrystal"
-		]
+		"supportedThemes": ["sap_hcb", "sap_bluecrystal"]
 	},
 	"sap.ui5": {
 		"rootView": {
@@ -84,7 +81,10 @@
 			},
 			"": {
 				"dataSource": "mainService",
-				"preload": true
+				"preload": true,
+				"settings": {
+					"defaultBindingMode": "TwoWay"
+				}
 			}
 		},
 		"routing": {
@@ -95,37 +95,25 @@
 				"controlId": "app",
 				"controlAggregation": "pages",
 				"bypassed": {
-					"target": [
-						"notFound"
-					]
+					"target": ["notFound"]
 				},
 				"async": true
 			},
-			"routes": [
-				{
-					"pattern": "",
-					"name": "worklist",
-					"target": [
-						"worklist"
-					]
-				},
-				{
-					"pattern": "UserSet/{objectId}",
-					"name": "object",
-					"target": [
-						"object"
-					]
-				},
-				{
-					"name": "add",
-					"pattern": "AddUser",
-					"titleTarget": "",
-					"greedy": false,
-					"target": [
-						"add"
-					]
-				}
-			],
+			"routes": [{
+				"pattern": "",
+				"name": "worklist",
+				"target": ["worklist"]
+			}, {
+				"pattern": "UserSet/{objectId}",
+				"name": "object",
+				"target": ["object"]
+			}, {
+				"name": "add",
+				"pattern": "AddUser",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["add"]
+			}],
 			"targets": {
 				"worklist": {
 					"viewName": "Worklist",
