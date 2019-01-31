@@ -1,0 +1,36 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="com.dxc.test.controller.Add">
+	<semantic:FullscreenPage id="page" navButtonPress="onNavBack" showNavButton="true" title="{i18n>addTitle}" busy="{addView>/busy}" busyIndicatorDelay="{addView>/delay}">
+		<semantic:content>
+			<Panel xmlns="sap.m" width="auto" expandable="true" expanded="true" class="sapUiResponsiveMargin">
+				<headerToolbar>
+					<Toolbar id="toolbar1">
+						<Title text="{i18n>panelHeaderTitle}"/>
+						<ToolbarSpacer/>
+					</Toolbar>
+				</headerToolbar>
+				<content>
+					<sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="form0" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+						<sap.ui.layout.form:content>
+							<Label text="{i18n>userNameLabel}" required="true"/>
+							<Input value="{UserName}"/>
+							<Label text="{i18n>nicknameLabel}"/>
+							<Input value="{Nickname}"/>
+							<Label text="{i18n>firstNameLabel}"/>
+							<Input value="{FirstName}"/>
+							<Label text="{i18n>lastNameLabel}"/>
+							<Input value="{LastName}"/>
+							<Label text="{i18n>emailLabel}"/>
+							<Input value="{Email}"/>
+						</sap.ui.layout.form:content>
+					</sap.ui.layout.form:SimpleForm>
+				</content>
+			</Panel>
+		</semantic:content>
+	<semantic:saveAction>
+	    <semantic:SaveAction id="saveButton" press="onSavePress"/>
+	</semantic:saveAction>
+	<semantic:cancelAction>
+	    <semantic:CancelAction id="cancelButton" press="onCancelPress"/>
+	</semantic:cancelAction>
+	</semantic:FullscreenPage>
+</mvc:View>
