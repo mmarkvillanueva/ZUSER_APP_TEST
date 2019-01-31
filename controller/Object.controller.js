@@ -4,7 +4,7 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/routing/History",
 	"com/dxc/test/model/formatter"
-], function (BaseController, JSONModel, History, formatter) {
+], function(BaseController, JSONModel, History, formatter) {
 	"use strict";
 	return BaseController.extend("com.dxc.test.controller.Object", {
 		formatter: formatter,
@@ -15,7 +15,7 @@ sap.ui.define([
 		 * Called when the worklist controller is instantiated.
 		 * @public
 		 */
-		onInit: function () {
+		onInit: function() {
 			// Model used to manipulate control states. The chosen values make sure,
 			// detail page is busy indication immediately so there is no break in
 			// between the busy indication for loading the view's meta data
@@ -27,11 +27,21 @@ sap.ui.define([
 			// Store original busy indicator delay, so it can be restored later on
 			iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
 			this.setModel(oViewModel, "objectView");
-			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
+			this.getOwnerComponent().getModel().metadataLoaded().then(function() {
 				// Restore original busy indicator delay for the object view
 				oViewModel.setProperty("/delay", iOriginalBusyDelay);
 			});
 		},
+
+		/**
+		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
+		 * This hook is the same one that SAPUI5 controls get after being rendered.
+		 * @memberOf com.dxc.test.view.Add
+		 */
+		onAfterRendering: function() {
+			debugger;
+		},
+
 		/* =========================================================== */
 		/* event handlers                                              */
 		/* =========================================================== */
@@ -39,7 +49,7 @@ sap.ui.define([
 		 * Event handler when the share in JAM button has been clicked
 		 * @public
 		 */
-		onShareInJamPress: function () {
+		onShareInJamPress: function() {
 			var oViewModel = this.getModel("objectView"),
 				oShareDialog = sap.ui.getCore().createComponent({
 					name: "sap.collaboration.components.fiori.sharing.dialog",
@@ -58,7 +68,7 @@ sap.ui.define([
 		 * If not, it will replace the current entry of the browser history with the worklist route.
 		 * @public
 		 */
-		onNavBack: function () {
+		onNavBack: function() {
 			var sPreviousHash = History.getInstance().getPreviousHash(),
 				oCrossAppNavigator = sap.ushell.Container.getService("CrossApplicationNavigation");
 			if (sPreviousHash !== undefined || !oCrossAppNavigator.isInitialNavigation()) {
@@ -76,9 +86,9 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} oEvent pattern match event in route 'object'
 		 * @private
 		 */
-		_onObjectMatched: function (oEvent) {
+		_onObjectMatched: function(oEvent) {
 			var sObjectId = oEvent.getParameter("arguments").objectId;
-			this.getModel().metadataLoaded().then(function () {
+			this.getModel().metadataLoaded().then(function() {
 				var sObjectPath = this.getModel().createKey("UserSet", {
 					UserName: sObjectId
 				});
@@ -91,7 +101,7 @@ sap.ui.define([
 		 * @param {string} sObjectPath path to the object to be bound
 		 * @private
 		 */
-		_bindView: function (sObjectPath) {
+		_bindView: function(sObjectPath) {
 			var oViewModel = this.getModel("objectView"),
 				oDataModel = this.getModel();
 			this.getView().bindElement({
@@ -101,8 +111,8 @@ sap.ui.define([
 				},
 				events: {
 					change: this._onBindingChange.bind(this),
-					dataRequested: function () {
-						oDataModel.metadataLoaded().then(function () {
+					dataRequested: function() {
+						oDataModel.metadataLoaded().then(function() {
 							// Busy indicator on view should only be set if metadata is loaded,
 							// otherwise there may be two busy indications next to each other on the
 							// screen. This happens because route matched handler already calls '_bindView'
@@ -110,13 +120,13 @@ sap.ui.define([
 							oViewModel.setProperty("/busy", true);
 						});
 					},
-					dataReceived: function () {
+					dataReceived: function() {
 						oViewModel.setProperty("/busy", false);
 					}
 				}
 			});
 		},
-		_onBindingChange: function () {
+		_onBindingChange: function() {
 			var oView = this.getView(),
 				oViewModel = this.getModel("objectView"),
 				oElementBinding = oView.getElementBinding();
@@ -140,6 +150,6 @@ sap.ui.define([
 				location.href
 			]));
 		}
-		
+
 	});
 });
