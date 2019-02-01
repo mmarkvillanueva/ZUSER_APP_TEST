@@ -25,12 +25,46 @@
 					</sap.ui.layout.form:SimpleForm>
 				</content>
 			</Panel>
+			<Panel width="auto" expandable="true" expanded="true" class="sapUiResponsiveMargin">
+				<content>
+					<Table id="table" width="auto" class="sapUiResponsiveMargin" items="{ContactSet}" noDataText="{addView>/tableNoDataText}" busyIndicatorDelay="{addView>/tableBusyDelay}" growing="true" growingScrollToLoad="true" updateFinished="onUpdateFinished">
+						<columns>
+							<Column id="typeColumn" minScreenWidth="Tablet" demandPopin="true">
+								<Text text="Type" id="typeColumnTitle"/>
+							</Column>
+							<Column id="phoneColumn" minScreenWidth="Tablet" demandPopin="true">
+								<Text text="Phone" id="phoneColumnTitle"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<ObjectAttribute text="{Type}"/>
+								</cells>
+								<cells>
+									<ObjectAttribute text="{Phone}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+			<headerToolbar>
+			    <Toolbar width="95%">
+			        <content>
+			        	<TItle text="{i18n>panelContactDetail}"/>
+			            <ToolbarSpacer/>
+			            <Button text="Add" width="100px" type="Accept"/>
+			            <Button text="Delete" width="100px" type="Reject"/>
+			        </content>
+			    </Toolbar>
+			</headerToolbar>
+			</Panel>
 		</semantic:content>
-	<semantic:saveAction>
-	    <semantic:SaveAction id="saveButton" press="onSavePress"/>
-	</semantic:saveAction>
-	<semantic:cancelAction>
-	    <semantic:CancelAction id="cancelButton" press="onCancelPress"/>
-	</semantic:cancelAction>
+		<semantic:saveAction>
+			<semantic:SaveAction id="saveButton" press="onSavePress"/>
+		</semantic:saveAction>
+		<semantic:cancelAction>
+			<semantic:CancelAction id="cancelButton" press="onCancelPress"/>
+		</semantic:cancelAction>
 	</semantic:FullscreenPage>
 </mvc:View>
