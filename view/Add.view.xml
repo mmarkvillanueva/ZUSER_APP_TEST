@@ -1,5 +1,7 @@
-<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="com.dxc.test.controller.Add">
-	<semantic:FullscreenPage id="page" navButtonPress="onNavBack" showNavButton="true" title="{i18n>addTitle}" busy="{addView>/busy}" busyIndicatorDelay="{addView>/delay}">
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar"
+	xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="com.dxc.test.controller.Add">
+	<semantic:FullscreenPage id="page" navButtonPress="onNavBack" showNavButton="true" title="{i18n>addTitle}" busy="{addView>/busy}"
+		busyIndicatorDelay="{addView>/delay}">
 		<semantic:content>
 			<Panel xmlns="sap.m" width="auto" expandable="true" expanded="true" class="sapUiResponsiveMargin">
 				<headerToolbar>
@@ -9,10 +11,12 @@
 					</Toolbar>
 				</headerToolbar>
 				<content>
-					<sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="form0" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+					<sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true"
+						layout="ResponsiveGridLayout" id="form0" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false"
+						emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
 						<sap.ui.layout.form:content>
-							<Label text="{i18n>userNameLabel}" required="true"/>
-							<Input value="{UserName}"/>
+	<!--						<Label text="{i18n>userNameLabel}" required="true"/>
+							<Input value="{UserName}" id="inputUserName"/>
 							<Label text="{i18n>nicknameLabel}"/>
 							<Input value="{Nickname}"/>
 							<Label text="{i18n>firstNameLabel}"/>
@@ -20,14 +24,35 @@
 							<Label text="{i18n>lastNameLabel}"/>
 							<Input value="{LastName}"/>
 							<Label text="{i18n>emailLabel}"/>
-							<Input value="{Email}"/>
+							<Input value="{Email}"/>-->
+							<Label text="{i18n>userNameLabel}" required="true"/>
+							<Input id="inputUserName"/>
+							<Label text="{i18n>nicknameLabel}"/>
+							<Input id="inputNickname"/>
+							<Label text="{i18n>firstNameLabel}"/>
+							<Input id="inputFirstName"/>
+							<Label text="{i18n>lastNameLabel}"/>
+							<Input id="inputLastName"/>
+							<Label text="{i18n>emailLabel}"/>
+							<Input id="inputEmail"/>
 						</sap.ui.layout.form:content>
 					</sap.ui.layout.form:SimpleForm>
 				</content>
 			</Panel>
 			<Panel width="auto" expandable="true" expanded="true" class="sapUiResponsiveMargin">
+				<headerToolbar>
+					<Toolbar width="95%">
+						<content>
+							<TItle text="{i18n>panelContactDetail}"/>
+							<ToolbarSpacer/>
+							<Button text="Add" width="100px" type="Accept" press="onAddPress"/>
+							<Button text="Delete" width="100px" type="Reject" press="onDeletePress"/>
+						</content>
+					</Toolbar>
+				</headerToolbar>
 				<content>
-					<Table id="table" width="auto" class="sapUiResponsiveMargin" items="{ContactSet}" noDataText="{addView>/tableNoDataText}" busyIndicatorDelay="{addView>/tableBusyDelay}" growing="true" growingScrollToLoad="true" updateFinished="onUpdateFinished">
+					<Table id="tableContacts" width="auto" class="sapUiResponsiveMargin" items="{/data}" noDataText="{addView>/tableNoDataText}"
+						busyIndicatorDelay="{addView>/tableBusyDelay}" growing="true" growingScrollToLoad="true" updateFinished="onUpdateFinished">
 						<columns>
 							<Column id="typeColumn" minScreenWidth="Tablet" demandPopin="true">
 								<Text text="Type" id="typeColumnTitle"/>
@@ -48,16 +73,6 @@
 						</items>
 					</Table>
 				</content>
-			<headerToolbar>
-			    <Toolbar width="95%">
-			        <content>
-			        	<TItle text="{i18n>panelContactDetail}"/>
-			            <ToolbarSpacer/>
-			            <Button text="Add" width="100px" type="Accept"/>
-			            <Button text="Delete" width="100px" type="Reject"/>
-			        </content>
-			    </Toolbar>
-			</headerToolbar>
 			</Panel>
 		</semantic:content>
 		<semantic:saveAction>

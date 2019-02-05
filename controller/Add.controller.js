@@ -19,9 +19,14 @@ sap.ui.define([
 				busy: false,
 				delay: 0
 			});
-
+			
+			// Required to be able to setData in sap.m.Table
+			debugger;
+			var oJSONModel = new JSONModel();
+			this.getView().byId("tableContacts").setModel(oJSONModel);
+			
 			// Register to add route matched
-			this.getRouter().getRoute("add").attachPatternMatched(this._onRouteMatched, this);
+			//this.getRouter().getRoute("add").attachPatternMatched(this._onRouteMatched, this);
 
 			//this._iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
 			this.setModel(oViewModel, "addView");
@@ -66,8 +71,26 @@ sap.ui.define([
 		},
 
 		_onMetadataLoaded: function() {
-			debugger;
+
+/*			var oProperties = {
+				UserName: "",
+				FirstName: "",
+				LastName: "",
+				Nickname: "",
+				EMail: "",
+				ContactSet: []
+			};*/
+			
 			// Create new entry in the model
+/*			this._oContext = this.getModel().createEntry("/UserSet", {
+				properties: oProperties,
+				parameters: {
+					expand: "ContactSet"	
+				},
+				success: this._onCreateSuccess.bind(this),
+				error: this._onCreateError.bind(this)
+			});*/
+			
 			this._oContext = this.getModel().createEntry("/UserSet", {
 				success: this._onCreateSuccess.bind(this),
 				error: this._onCreateError.bind(this)
@@ -75,7 +98,7 @@ sap.ui.define([
 
 			// Bind the view to the new entry
 			this.getView().setBindingContext(this._oContext);
-			
+
 			/*
 						// Populate VH used for validation
 						this._populateVHArrays();
@@ -132,30 +155,77 @@ sap.ui.define([
 		 */
 		//onSavePress: function(oEvent) {
 		onSavePress: function() {
-			// temp add phone
-			var oContact = [{
-				UserName: "",
-				Phone: "123",
-				Type: "Mobile"
-			}];
 			debugger;
-			oContact[1].UserName = this._oContext.getProperty("UserName");
-
 			//var bError = this._validateOnSave();
-
 			//if (!bError) {
 			this.getModel("addView").setProperty("/busy", true);
-			this.getModel().submitChanges();
+			//this.getModel().submitChanges();
 			//} else {
 			//	MessageBox.error(this.getResourceBundle().getText("createErrorMessage"));
 			//}
-
+			
+			var oData = {
+				UserName: this.getView().byId("inputUserName").getValue()	
+			};
+			debugger;
 		},
 		/**
 		 *@memberOf com.dxc.test.controller.Object
 		 */
 		onCancelPress: function(oEvent) {
 			this.onNavBack();
+		},
+
+		onAddPress: function(oEvent) {
+			if(!this.addDialog) {
+				this.addDialog = sap.ui.xmlfragment("com.dxc.test.view.AddDialog", this);
+				this.getView().addDependent(this.addDialog);
+			}
+			
+			this.addDialog.open();
+			/*
+			
+			if (!this._oValueHelp[sInputId].valueHelpDialog) {
+				this._oValueHelp[sInputId].valueHelpDialog = sap.ui.xmlfragment(this._oValueHelp[sInputId].fragmentXMLView, this);
+				this.getView().addDependent(this._oValueHelp[sInputId].valueHelpDialog);
+			}
+
+			this._oValueHelp[sInputId].valueHelpDialog.getBinding("items").filter([
+				new Filter(this._oValueHelp[sInputId].filterKey, sap.ui.model.FilterOperator.Contains, sInputValue)
+			]);
+
+			this._oValueHelp[sInputId].active = true;
+			this._oValueHelp[sInputId].valueHelpDialog.open(sInputValue);
+*/
+		},
+
+		onDeletePress: function(oEvent) {
+			alert("Delete Press");
+		},
+		
+		onOKDialog: function(oEvent) {
+			debugger;
+			var sType = sap.ui.getCore().byId("inputType").getValue(),
+				sPhone = sap.ui.getCore().byId("inputPhone").getValue(),
+				sUser = this.byId("inputUserName").getValue();
+			
+			var contactRow = {
+				Phone: sPhone,
+				Type: sType
+			};
+
+			var oModel = this.getView().byId("tableContacts").getModel();
+			var oItemData = oModel.getProperty("/data");
+			
+			if(typeof oItemData === "undefined" || oItemData === null) {
+				oItemData = [];
+			}
+			
+			oItemData.push(contactRow);
+			oModel.setData({data: oItemData});
+			
+			this.addDialog.close();
+			
 		}
 
 	});
