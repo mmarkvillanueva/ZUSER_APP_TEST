@@ -204,14 +204,19 @@ sap.ui.define([
 		},
 		
 		onOKDialog: function(oEvent) {
-			debugger;
-			var sType = sap.ui.getCore().byId("inputType").getValue(),
+
+		/*	var sType = sap.ui.getCore().byId("inputType").getValue(),
 				sPhone = sap.ui.getCore().byId("inputPhone").getValue(),
-				sUser = this.byId("inputUserName").getValue();
+				sUser = this.byId("inputUserName").getValue();*/
 			
-			var contactRow = {
+/*			var contactRow = {
 				Phone: sPhone,
 				Type: sType
+			};*/
+
+			var contactRow = {
+				Phone: sap.ui.getCore().byId("inputPhone").getValue(),
+				Type: sap.ui.getCore().byId("inputType").getValue()
 			};
 
 			var oModel = this.getView().byId("tableContacts").getModel();
