@@ -2,8 +2,9 @@ sap.ui.define([
 	"com/dxc/test/controller/BaseController",
 	"com/dxc/test/controller/Validation",
 	"sap/ui/model/json/JSONModel",
-	"sap/m/MessageToast"
-], function(BaseController, Validation, JSONModel, MessageToast) {
+	"sap/m/MessageToast",
+	"sap/m/MessageBox"
+], function(BaseController, Validation, JSONModel, MessageToast, MessageBox) {
 	"use strict";
 
 	return BaseController.extend("com.dxc.test.controller.Add", {
@@ -21,12 +22,7 @@ sap.ui.define([
 			});
 			
 			// Required to be able to setData in sap.m.Table
-			debugger;
-			var oJSONModel = new JSONModel();
-			this.getView().byId("tableContacts").setModel(oJSONModel);
-			
-			// Register to add route matched
-			//this.getRouter().getRoute("add").attachPatternMatched(this._onRouteMatched, this);
+			this.getView().byId("tableContacts").setModel(new JSONModel());
 
 			//this._iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
 			this.setModel(oViewModel, "addView");
@@ -62,84 +58,6 @@ sap.ui.define([
 		/* =========================================================== */
 		/* event handlers                                              */
 		/* =========================================================== */
-		_onRouteMatched: function() {
-
-			// Register for metadata loaded events
-			var oModel = this.getModel();
-			oModel.metadataLoaded().then(this._onMetadataLoaded.bind(this));
-
-		},
-
-		_onMetadataLoaded: function() {
-
-/*			var oProperties = {
-				UserName: "",
-				FirstName: "",
-				LastName: "",
-				Nickname: "",
-				EMail: "",
-				ContactSet: []
-			};*/
-			
-			// Create new entry in the model
-/*			this._oContext = this.getModel().createEntry("/UserSet", {
-				properties: oProperties,
-				parameters: {
-					expand: "ContactSet"	
-				},
-				success: this._onCreateSuccess.bind(this),
-				error: this._onCreateError.bind(this)
-			});*/
-			
-			this._oContext = this.getModel().createEntry("/UserSet", {
-				success: this._onCreateSuccess.bind(this),
-				error: this._onCreateError.bind(this)
-			});
-
-			// Bind the view to the new entry
-			this.getView().setBindingContext(this._oContext);
-
-			/*
-						// Populate VH used for validation
-						this._populateVHArrays();
-
-						// Hide Close Dialog
-						if (this.oBusyDialogFlag.addView) {
-							this.oBusyDialog.close();
-							this.oBusyDialogFlag.addView = false;
-						}
-
-						this.getModel("addView").setProperty("/delay", this._iOriginalBusyDelay);*/
-
-		},
-
-		_onCreateSuccess: function(oUser) {
-			sap.m.MessageToast.show("Success");
-
-			this.getModel("addView").setProperty("/busy", false);
-
-			// Navigate to the new product's object view
-			this.getRouter().navTo("object", {
-				objectId: oUser.UserName
-			}, true);
-
-			// Unbind the view to not show this object again
-			this.getView().unbindObject();
-
-			// Show success message
-			var sMessage = this.getResourceBundle().getText("newUserCreated", [oUser.Nickname]);
-			MessageToast.show(sMessage, {
-				closeOnBrowserNavigation: false
-			});
-
-		},
-
-		_onCreateError: function(oData) {
-			sap.m.MessageToast.show("Fail");
-			/*			this.getModel("addView").setProperty("/busy", false);
-						MessageBox.error(this.getResourceBundle().getText("createErrorMessage"));*/
-		},
-
 		/**
 		 * Event handler for navigating back.
 		 * It checks if there is a history entry. If yes, history.go(-1) will happen.
@@ -156,6 +74,7 @@ sap.ui.define([
 		//onSavePress: function(oEvent) {
 		onSavePress: function() {
 			debugger;
+			var that = this;
 			//var bError = this._validateOnSave();
 			//if (!bError) {
 			this.getModel("addView").setProperty("/busy", true);
@@ -165,10 +84,62 @@ sap.ui.define([
 			//}
 			
 			var oData = {
-				UserName: this.getView().byId("inputUserName").getValue()	
+				UserName: this.getView().byId("inputUserName").getValue(),
+				FirstName: this.getView().byId("inputFirstName").getValue(),
+				LastName: this.getView().byId("inputLastName").getValue(),
+				Nickname: this.getView().byId("inputNickname").getValue(),
+				Email: this.getView().byId("inputEmail").getValue(),
+				ContactSet: this.getView().byId("tableContacts").getModel().getProperty("/data")
 			};
 			debugger;
+			
+			this.getModel().setHeaders({
+				"X-Requested-With": "X"
+			});
+			
+			this.getModel().create("/UserSet", oData, {
+				success: function(oData, response) {
+					that._onCreateSuccess(oData, response);
+				},
+				error: function(error) {
+					that._onCreateError(error);
+				}
+			});
+			
 		},
+
+		_onCreateSuccess: function(oData, response) {
+			debugger;
+			this.getModel("addView").setProperty("/busy", false);
+
+			// Navigate to the new product's object view
+			this.getRouter().navTo("object", {
+				objectId: oData.UserName
+			}, true);
+
+			// Unbind the view to not show this object again
+			//this.getView().unbindObject();
+
+			// Show success message
+			var sMessage = this.getResourceBundle().getText("newUserCreated", [oData.Nickname]);
+			MessageToast.show(sMessage, {
+				closeOnBrowserNavigation: false
+			});
+			
+			this.getView().byId("inputUserName").setValue();
+			this.getView().byId("inputFirstName").setValue();
+			this.getView().byId("inputLastName").setValue();
+			this.getView().byId("inputNickname").setValue();
+			this.getView().byId("inputEmail").setValue();
+			this.getView().byId("tableContacts").unbindItems();
+			
+		},
+
+		_onCreateError: function(error) {
+			this.getModel("addView").setProperty("/busy", false);
+			MessageBox.error(this.getResourceBundle().getText("createErrorMessage"));
+		},
+
 		/**
 		 *@memberOf com.dxc.test.controller.Object
 		 */
@@ -183,20 +154,7 @@ sap.ui.define([
 			}
 			
 			this.addDialog.open();
-			/*
-			
-			if (!this._oValueHelp[sInputId].valueHelpDialog) {
-				this._oValueHelp[sInputId].valueHelpDialog = sap.ui.xmlfragment(this._oValueHelp[sInputId].fragmentXMLView, this);
-				this.getView().addDependent(this._oValueHelp[sInputId].valueHelpDialog);
-			}
 
-			this._oValueHelp[sInputId].valueHelpDialog.getBinding("items").filter([
-				new Filter(this._oValueHelp[sInputId].filterKey, sap.ui.model.FilterOperator.Contains, sInputValue)
-			]);
-
-			this._oValueHelp[sInputId].active = true;
-			this._oValueHelp[sInputId].valueHelpDialog.open(sInputValue);
-*/
 		},
 
 		onDeletePress: function(oEvent) {
@@ -205,21 +163,13 @@ sap.ui.define([
 		
 		onOKDialog: function(oEvent) {
 
-		/*	var sType = sap.ui.getCore().byId("inputType").getValue(),
-				sPhone = sap.ui.getCore().byId("inputPhone").getValue(),
-				sUser = this.byId("inputUserName").getValue();*/
-			
-/*			var contactRow = {
-				Phone: sPhone,
-				Type: sType
-			};*/
-
 			var contactRow = {
 				Phone: sap.ui.getCore().byId("inputPhone").getValue(),
 				Type: sap.ui.getCore().byId("inputType").getValue()
 			};
-
-			var oModel = this.getView().byId("tableContacts").getModel();
+			
+			var oTable = this.getView().byId("tableContacts");
+			var oModel = oTable.getModel();
 			var oItemData = oModel.getProperty("/data");
 			
 			if(typeof oItemData === "undefined" || oItemData === null) {
@@ -228,6 +178,9 @@ sap.ui.define([
 			
 			oItemData.push(contactRow);
 			oModel.setData({data: oItemData});
+						
+			sap.ui.getCore().byId("inputPhone").setValue();
+			sap.ui.getCore().byId("inputType").setValue();
 			
 			this.addDialog.close();
 			

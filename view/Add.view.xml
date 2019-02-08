@@ -15,16 +15,6 @@
 						layout="ResponsiveGridLayout" id="form0" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false"
 						emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
 						<sap.ui.layout.form:content>
-	<!--						<Label text="{i18n>userNameLabel}" required="true"/>
-							<Input value="{UserName}" id="inputUserName"/>
-							<Label text="{i18n>nicknameLabel}"/>
-							<Input value="{Nickname}"/>
-							<Label text="{i18n>firstNameLabel}"/>
-							<Input value="{FirstName}"/>
-							<Label text="{i18n>lastNameLabel}"/>
-							<Input value="{LastName}"/>
-							<Label text="{i18n>emailLabel}"/>
-							<Input value="{Email}"/>-->
 							<Label text="{i18n>userNameLabel}" required="true"/>
 							<Input id="inputUserName"/>
 							<Label text="{i18n>nicknameLabel}"/>
