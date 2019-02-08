@@ -25,7 +25,7 @@ sap.ui.define([
 					this._showServiceError(oParams.response);
 				}, this);
 
-				this._oModel.attachRequestFailed(function (oEvent) {
+/*				this._oModel.attachRequestFailed(function (oEvent) {
 					var oParams = oEvent.getParameters();
 					// An entity that was not found in the service is also throwing a 404 error in oData.
 					// We already cover this case with a notFound target so we skip it here.
@@ -33,7 +33,7 @@ sap.ui.define([
 					if (oParams.response.statusCode !== "404" || (oParams.response.statusCode === 404 && oParams.response.responseText.indexOf("Cannot POST") === 0)) {
 						this._showServiceError(oParams.response);
 					}
-				}, this);
+				}, this);*/
 			},
 
 			/**

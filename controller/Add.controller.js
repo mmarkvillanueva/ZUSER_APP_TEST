@@ -73,7 +73,7 @@ sap.ui.define([
 		 */
 		//onSavePress: function(oEvent) {
 		onSavePress: function() {
-			debugger;
+
 			var that = this;
 			//var bError = this._validateOnSave();
 			//if (!bError) {
@@ -91,8 +91,7 @@ sap.ui.define([
 				EMail: this.getView().byId("inputEmail").getValue(),
 				ContactSet: this.getView().byId("tableContacts").getModel().getProperty("/data")
 			};
-			debugger;
-			
+
 			this.getModel().setHeaders({
 				"X-Requested-With": "X"
 			});
@@ -109,7 +108,7 @@ sap.ui.define([
 		},
 
 		_onCreateSuccess: function(oData, response) {
-			debugger;
+
 			this.getModel("addView").setProperty("/busy", false);
 
 			// Navigate to the new product's object view
@@ -136,8 +135,9 @@ sap.ui.define([
 		},
 
 		_onCreateError: function(error) {
+			debugger;
 			this.getModel("addView").setProperty("/busy", false);
-			MessageBox.error(this.getResourceBundle().getText("createErrorMessage"));
+			MessageBox.error(JSON.parse(error.responseText).error.message.value);
 		},
 
 		/**
