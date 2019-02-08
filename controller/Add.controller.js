@@ -88,7 +88,7 @@ sap.ui.define([
 				FirstName: this.getView().byId("inputFirstName").getValue(),
 				LastName: this.getView().byId("inputLastName").getValue(),
 				Nickname: this.getView().byId("inputNickname").getValue(),
-				Email: this.getView().byId("inputEmail").getValue(),
+				EMail: this.getView().byId("inputEmail").getValue(),
 				ContactSet: this.getView().byId("tableContacts").getModel().getProperty("/data")
 			};
 			debugger;
