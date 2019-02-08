@@ -18,5 +18,12 @@
     "buildRequired": true,
     "targetFolder": "dist",
     "lastBuildDateTime": "Tue, 29 Jan 2019 11:25:16 GMT"
-  }
+  },
+  "generation": [
+    {
+      "templateId": "servicecatalog.connectivityComponent",
+      "templateVersion": "0.0.0",
+      "dateTimeStamp": "Fri, 08 Feb 2019 12:31:37 GMT"
+    }
+  ]
 }

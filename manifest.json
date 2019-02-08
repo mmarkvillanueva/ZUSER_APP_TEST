@@ -17,11 +17,19 @@
 					"odataVersion": "2.0",
 					"localUri": "localService/metadata.xml"
 				}
+			},
+			"ZTEST_VH_ODATA_SRV": {
+				"uri": "/sap/opu/odata/sap/ZTEST_VH_ODATA_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/ZTEST_VH_ODATA_SRV/metadata.xml"
+				}
 			}
 		},
 		"sourceTemplate": {
-			"id": "sap.ui.ui5-template-plugin.1worklist",
-			"version": "1.38.14"
+			"id": "servicecatalog.connectivityComponent",
+			"version": "0.0.0"
 		}
 	},
 	"sap.ui": {
@@ -86,6 +94,16 @@
 					"defaultBindingMode": "TwoWay",
 					"useBatch": true
 				}
+			},
+			"ValueHelp": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"defaultOperationMode": "Server",
+					"defaultBindingMode": "OneTime",
+					"defaultCountMode": "Request"
+				},
+				"dataSource": "ZTEST_VH_ODATA_SRV",
+				"preload": true
 			}
 		},
 		"routing": {

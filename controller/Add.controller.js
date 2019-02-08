@@ -165,7 +165,7 @@ sap.ui.define([
 
 			var contactRow = {
 				Phone: sap.ui.getCore().byId("inputPhone").getValue(),
-				Type: sap.ui.getCore().byId("inputType").getValue()
+				Type: sap.ui.getCore().byId("inputType").getSelectedKey()
 			};
 			
 			var oTable = this.getView().byId("tableContacts");
@@ -180,8 +180,6 @@ sap.ui.define([
 			oModel.setData({data: oItemData});
 						
 			sap.ui.getCore().byId("inputPhone").setValue();
-			sap.ui.getCore().byId("inputType").setValue();
-			
 			this.addDialog.close();
 			
 		}
