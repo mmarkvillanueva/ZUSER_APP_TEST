@@ -148,11 +148,12 @@ sap.ui.define([
 		},
 
 		onAddPress: function(oEvent) {
+			
 			if(!this.addDialog) {
 				this.addDialog = sap.ui.xmlfragment("com.dxc.test.view.AddDialog", this);
 				this.getView().addDependent(this.addDialog);
 			}
-			
+
 			this.addDialog.open();
 
 		},

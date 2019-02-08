@@ -98,9 +98,8 @@
 			"ValueHelp": {
 				"type": "sap.ui.model.odata.v2.ODataModel",
 				"settings": {
-					"defaultOperationMode": "Server",
 					"defaultBindingMode": "OneTime",
-					"defaultCountMode": "Request"
+					"useBatch": true
 				},
 				"dataSource": "ZTEST_VH_ODATA_SRV",
 				"preload": true

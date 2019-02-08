@@ -3,24 +3,6 @@
     {
       "filePath": "/Component.js",
       "previewMode": 0,
-      "dataMode": 1,
-      "workspace": "withoutWorkspace",
-      "ui5ActiveVersion": null,
-      "ui5VerSource": null,
-      "isDefaultVersion": 0,
-      "urlParameters": [],
-      "hashParameter": "",
-      "backendSystem": [],
-      "_metadata": {
-        "id": 3597302,
-        "runnerId": "fiorirunner",
-        "displayName": "NPL",
-        "lastRunTimeStamp": 1549630464379
-      }
-    },
-    {
-      "filePath": "/Component.js",
-      "previewMode": 0,
       "dataMode": 0,
       "workspace": "withoutWorkspace",
       "ui5ActiveVersion": null,
@@ -38,7 +20,25 @@
         "id": 2871858,
         "runnerId": "fiorirunner",
         "displayName": "Mock Data",
-        "lastRunTimeStamp": 1549630350879
+        "lastRunTimeStamp": 1549634811905
+      }
+    },
+    {
+      "filePath": "/Component.js",
+      "previewMode": 0,
+      "dataMode": 1,
+      "workspace": "withoutWorkspace",
+      "ui5ActiveVersion": null,
+      "ui5VerSource": null,
+      "isDefaultVersion": 0,
+      "urlParameters": [],
+      "hashParameter": "",
+      "backendSystem": [],
+      "_metadata": {
+        "id": 3597302,
+        "runnerId": "fiorirunner",
+        "displayName": "NPL",
+        "lastRunTimeStamp": 1549634622353
       }
     }
   ]
