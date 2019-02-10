@@ -16,8 +16,8 @@
 						emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
 						<sap.ui.layout.form:content>
 							<Label text="{i18n>userNameLabel}" required="true"/>
-							<Input id="inputUserName"/>
-							<Label text="{i18n>nicknameLabel}"/>
+							<Input id="inputUserName" change="validateUserName" submit="valuedateUserName"/>
+							<Label text="{i18n>nicknameLabel}" required="true"/>
 							<Input id="inputNickname"/>
 							<Label text="{i18n>firstNameLabel}"/>
 							<Input id="inputFirstName"/>

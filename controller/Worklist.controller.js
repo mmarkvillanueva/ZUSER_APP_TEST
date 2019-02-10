@@ -67,6 +67,7 @@ sap.ui.define([
 				sTitle = this.getResourceBundle().getText("worklistTableTitle");
 			}
 			this.getModel("worklistView").setProperty("/worklistTableTitle", sTitle);
+        
 		},
 		/**
 		 * Event handler when a table item gets pressed

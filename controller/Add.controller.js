@@ -8,7 +8,12 @@ sap.ui.define([
 	"use strict";
 
 	return BaseController.extend("com.dxc.test.controller.Add", {
-
+		
+		_oChecks: {
+			userNameMandatory: false,
+			userNameValid: false
+		},
+		
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
@@ -74,7 +79,22 @@ sap.ui.define([
 		//onSavePress: function(oEvent) {
 		onSavePress: function() {
 
-			var that = this;
+			var that = this,
+				bValid = true;
+
+			// Check if there are validation errors
+			$.each(this._oChecks, function(sProperty, bValue) {
+				if(!bValue) {
+					MessageBox.error(that.getResourceBundle().getText("submitErrorMessage"));
+					bValid = false;
+					return;
+				}
+			});
+			
+			if(!bValid) {
+				return;
+			}
+
 			//var bError = this._validateOnSave();
 			//if (!bError) {
 			this.getModel("addView").setProperty("/busy", true);
@@ -135,7 +155,6 @@ sap.ui.define([
 		},
 
 		_onCreateError: function(error) {
-			debugger;
 			this.getModel("addView").setProperty("/busy", false);
 			MessageBox.error(JSON.parse(error.responseText).error.message.value);
 		},
@@ -183,6 +202,10 @@ sap.ui.define([
 			sap.ui.getCore().byId("inputPhone").setValue();
 			this.addDialog.close();
 			
+		},
+		
+		validateUserName: function(oEvent) {
+			Validation.checkUserName(oEvent.getSource(), this);
 		}
 
 	});

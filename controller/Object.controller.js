@@ -39,7 +39,7 @@ sap.ui.define([
 		 * @memberOf com.dxc.test.view.Add
 		 */
 		onAfterRendering: function() {
-			debugger;
+
 		},
 
 		/* =========================================================== */

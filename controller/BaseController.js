@@ -4,6 +4,7 @@ sap.ui.define([
 		"use strict";
 
 		return Controller.extend("com.dxc.test.controller.BaseController", {
+
 			/**
 			 * Convenience method for accessing the router.
 			 * @public
