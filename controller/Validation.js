@@ -34,16 +34,19 @@ sap.ui.define([
 				// Check Mandatory
 				if(sValue) {
 					oController._oChecks.userNameMandatory = true;
+					oInput.setValueState(ValueState.None).setValueStateText();
 				} else {
 					oInput.setValueState(ValueState.Error).setValueStateText(oController.getResourceBundle().getText("mandatoryErrorMessage"));
 					oController._oChecks.userNameMandatory = false;
+					return;
 				}
 	
 				oController.getModel().read("/UserSet/$count", {
 					filters: [new Filter("UserName", FilterOperator.EQ, sValue)],
 					success: function(oData) {
-						if(oData === 0) {
+						if(oData == 0) {
 							oController._oChecks.userNameValid = true;
+							oInput.setValueState(ValueState.None).setValueStateText();
 						} else {
 							oInput.setValueState(ValueState.Error).setValueStateText(oController.getResourceBundle().getText("duplicateUserNameErrorMessage"));
 							oController._oChecks.userNameValid = false;
