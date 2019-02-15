@@ -1,7 +1,4 @@
-<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar"
-	xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="com.dxc.test.controller.Add">
-	<semantic:FullscreenPage id="page" navButtonPress="onNavBack" showNavButton="true" title="{i18n>addTitle}" busy="{addView>/busy}"
-		busyIndicatorDelay="{addView>/delay}">
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.m.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:cd="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" controllerName="com.dxc.test.controller.Add"><semantic:FullscreenPage id="page" navButtonPress="onNavBack" showNavButton="true" title="{i18n>addTitle}" busy="{addView>/busy}" busyIndicatorDelay="{addView>/delay}">
 		<semantic:content>
 			<Panel xmlns="sap.m" width="auto" expandable="true" expanded="true" class="sapUiResponsiveMargin">
 				<headerToolbar>
@@ -11,9 +8,7 @@
 					</Toolbar>
 				</headerToolbar>
 				<content>
-					<sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true"
-						layout="ResponsiveGridLayout" id="form0" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false"
-						emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
+					<sap.ui.layout.form:SimpleForm xmlns:sap.ui.layout.form="sap.ui.layout.form" xmlns:sap.ui.core="sap.ui.core" editable="true" layout="ResponsiveGridLayout" id="form0" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false">
 						<sap.ui.layout.form:content>
 							<Label text="{i18n>userNameLabel}" required="true"/>
 							<Input id="inputUserName" change="validateUserName" submit="valuedateUserName"/>
@@ -41,8 +36,7 @@
 					</Toolbar>
 				</headerToolbar>
 				<content>
-					<Table id="tableContacts" width="auto" class="sapUiResponsiveMargin" items="{/data}" noDataText="{addView>/tableNoDataText}"
-						busyIndicatorDelay="{addView>/tableBusyDelay}" growing="true" growingScrollToLoad="true" updateFinished="onUpdateFinished">
+					<Table id="tableContacts" width="auto" class="sapUiResponsiveMargin" items="{/data}" noDataText="{addView>/tableNoDataText}" busyIndicatorDelay="{addView>/tableBusyDelay}" growing="true" growingScrollToLoad="true" updateFinished="onUpdateFinished">
 						<columns>
 							<Column id="typeColumn" minScreenWidth="Tablet" demandPopin="true">
 								<Text text="Type" id="typeColumnTitle"/>
@@ -71,5 +65,8 @@
 		<semantic:cancelAction>
 			<semantic:CancelAction id="cancelButton" press="onCancelPress"/>
 		</semantic:cancelAction>
+	<semantic:messagesIndicator>
+	    <semantic:MessagesIndicator tooltip="Messages" id="messageButton" press="onMessagesButtonPress"/>
+	</semantic:messagesIndicator>
 	</semantic:FullscreenPage>
 </mvc:View>

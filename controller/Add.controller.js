@@ -3,17 +3,19 @@ sap.ui.define([
 	"com/dxc/test/controller/Validation",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageToast",
-	"sap/m/MessageBox"
-], function(BaseController, Validation, JSONModel, MessageToast, MessageBox) {
+	"sap/m/MessageBox",
+	"sap/m/MessagePopover",
+	"sap/m/MessagePopoverItem"
+], function(BaseController, Validation, JSONModel, MessageToast, MessageBox, MessagePopover, MessagePopoverItem) {
 	"use strict";
 
 	return BaseController.extend("com.dxc.test.controller.Add", {
-		
-		_oChecks: {
+
+/*		_oChecks: {
 			userNameMandatory: false,
 			userNameValid: false
-		},
-		
+		},*/
+
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
@@ -25,12 +27,28 @@ sap.ui.define([
 				busy: false,
 				delay: 0
 			});
-			
+
 			// Required to be able to setData in sap.m.Table
 			this.getView().byId("tableContacts").setModel(new JSONModel());
 
 			//this._iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
 			this.setModel(oViewModel, "addView");
+
+			////////// Test Message
+/*			var oMessageProcessor = new sap.ui.core.message.ControlMessageProcessor();
+			var oMessageManager = sap.ui.getCore().getMessageManager();
+
+			oMessageManager.registerMessageProcessor(oMessageProcessor);
+
+			oMessageManager.addMessages(
+				new sap.ui.core.message.Message({
+					message: "Something wrong happened",
+					type: sap.ui.core.MessageType.Error,
+					processor: oMessageProcessor
+				})
+			);*/
+
+			////////// Test MEssage
 
 		},
 
@@ -79,19 +97,12 @@ sap.ui.define([
 		//onSavePress: function(oEvent) {
 		onSavePress: function() {
 
-			var that = this,
-				bValid = true;
+			var that = this;
 
 			// Check if there are validation errors
-			$.each(this._oChecks, function(sProperty, bValue) {
-				if(!bValue) {
-					MessageBox.error(that.getResourceBundle().getText("submitErrorMessage"));
-					bValid = false;
-					return;
-				}
-			});
-			
-			if(!bValid) {
+			if (Validation._messages.length !== 0) {
+				//MessageBox.error(that.getResourceBundle().getText("submitErrorMessage"));
+				this._toggleMessagePopover(this.getView().byId("messageButton"));
 				return;
 			}
 
@@ -102,7 +113,7 @@ sap.ui.define([
 			//} else {
 			//	MessageBox.error(this.getResourceBundle().getText("createErrorMessage"));
 			//}
-			
+
 			var oData = {
 				UserName: this.getView().byId("inputUserName").getValue(),
 				FirstName: this.getView().byId("inputFirstName").getValue(),
@@ -115,7 +126,7 @@ sap.ui.define([
 			this.getModel().setHeaders({
 				"X-Requested-With": "X"
 			});
-			
+
 			this.getModel().create("/UserSet", oData, {
 				success: function(oData, response) {
 					that._onCreateSuccess(oData, response);
@@ -124,7 +135,7 @@ sap.ui.define([
 					that._onCreateError(error);
 				}
 			});
-			
+
 		},
 
 		_onCreateSuccess: function(oData, response) {
@@ -144,14 +155,14 @@ sap.ui.define([
 			MessageToast.show(sMessage, {
 				closeOnBrowserNavigation: false
 			});
-			
+
 			this.getView().byId("inputUserName").setValue();
 			this.getView().byId("inputFirstName").setValue();
 			this.getView().byId("inputLastName").setValue();
 			this.getView().byId("inputNickname").setValue();
 			this.getView().byId("inputEmail").setValue();
 			this.getView().byId("tableContacts").unbindItems();
-			
+
 		},
 
 		_onCreateError: function(error) {
@@ -167,8 +178,8 @@ sap.ui.define([
 		},
 
 		onAddPress: function(oEvent) {
-			
-			if(!this.addDialog) {
+
+			if (!this.addDialog) {
 				this.addDialog = sap.ui.xmlfragment("com.dxc.test.view.AddDialog", this);
 				this.getView().addDependent(this.addDialog);
 			}
@@ -180,34 +191,64 @@ sap.ui.define([
 		onDeletePress: function(oEvent) {
 			alert("Delete Press");
 		},
-		
+
 		onOKDialog: function(oEvent) {
 
 			var contactRow = {
 				Phone: sap.ui.getCore().byId("inputPhone").getValue(),
 				Type: sap.ui.getCore().byId("inputType").getSelectedKey()
 			};
-			
+
 			var oTable = this.getView().byId("tableContacts");
 			var oModel = oTable.getModel();
 			var oItemData = oModel.getProperty("/data");
-			
-			if(typeof oItemData === "undefined" || oItemData === null) {
+
+			if (typeof oItemData === "undefined" || oItemData === null) {
 				oItemData = [];
 			}
-			
+
 			oItemData.push(contactRow);
-			oModel.setData({data: oItemData});
-						
+			oModel.setData({
+				data: oItemData
+			});
+
 			sap.ui.getCore().byId("inputPhone").setValue();
 			this.addDialog.close();
-			
+
 		},
-		
+
 		validateUserName: function(oEvent) {
 			Validation.checkUserName(oEvent.getSource(), this);
-		}
+		},
 
+		onMessagesButtonPress: function(oEvent) {
+
+			this._toggleMessagePopover(oEvent.getSource());
+
+		},
+		
+		_toggleMessagePopover: function(oMessagesButton) {
+			
+			if (!this._messagePopover) {
+				this._messagePopover = new MessagePopover({
+					items: {
+						path: "message>/",
+						template: new MessagePopoverItem({
+							description: "{message>description}",
+							type: "{message>type}",
+							title: "{message>message}"
+						})
+					}
+				});
+				
+				oMessagesButton.addDependent(this._messagePopover);
+
+			}
+			
+			this._messagePopover.toggle(oMessagesButton);
+			
+		}
+		
 	});
 
 });
