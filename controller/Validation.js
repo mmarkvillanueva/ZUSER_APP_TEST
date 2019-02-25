@@ -33,8 +33,7 @@ sap.ui.define([
 
 			var that = this,
 				sValue = oInput.getValue();
-			debugger;
-			
+
 			this.removeMessage("mandatoryErrorMessage");
 			this.removeMessage("duplicateUserNameErrorMessage");
 			
