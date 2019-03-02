@@ -151,6 +151,13 @@ sap.ui.define([
 			var oTable = this.byId("table");
 			oTable.getBinding("items").refresh();
 		},
+	/**
+		 *@memberOf com.dxc.test.controller.Worklist
+		 */
+		onAddPress: function () {
+			this.getRouter().navTo("add");
+		},
+		
 		/* =========================================================== */
 		/* internal methods                                            */
 		/* =========================================================== */
@@ -178,12 +185,7 @@ sap.ui.define([
 			if (oTableSearchState.length !== 0) {
 				oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
 			}
-		},
-		/**
-		 *@memberOf com.dxc.test.controller.Worklist
-		 */
-		onAddPress: function (oEvent) {
-			this.getRouter().navTo("add");
 		}
+		
 	});
 });
