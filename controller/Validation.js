@@ -14,7 +14,11 @@ sap.ui.define([
 
 			// Discard new product model
 			oController.getModel().deleteCreatedEntry(oController._oContext);
-
+			
+			// Unbind View
+			debugger;
+			oController.getView().unbindObject();
+			
 			/*                // Reset all valuestate of input fields
 			                oController._sInputFields.forEach(function(sInputId) {
 			                    oController._removeMandatoryError(sInputId);
@@ -59,6 +63,21 @@ sap.ui.define([
 				}
 			});
 
+		},
+		
+		getInputData: function(oController) {
+			
+			var oData = {
+				UserName: oController.getView().byId("inputUserName").getValue(),
+				FirstName: oController.getView().byId("inputFirstName").getValue(),
+				LastName: oController.getView().byId("inputLastName").getValue(),
+				Nickname: oController.getView().byId("inputNickname").getValue(),
+				EMail: oController.getView().byId("inputEmail").getValue(),
+				ContactSet: oController.getView().byId("tableContacts").getModel().getProperty("/data")
+			};
+			
+			return oData;
+			
 		},
 
 		appendMessage: function(sMessage, sType, sError) {

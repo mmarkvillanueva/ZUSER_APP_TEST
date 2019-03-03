@@ -94,7 +94,6 @@ sap.ui.define([
 		/**
 		 *@memberOf com.dxc.test.controller.Object
 		 */
-		//onSavePress: function(oEvent) {
 		onSavePress: function() {
 
 			var that = this;
@@ -113,15 +112,17 @@ sap.ui.define([
 			//} else {
 			//	MessageBox.error(this.getResourceBundle().getText("createErrorMessage"));
 			//}
-
-			var oData = {
+			
+			var oData = Validation.getInputData(this);
+			
+/*			var oData = {
 				UserName: this.getView().byId("inputUserName").getValue(),
 				FirstName: this.getView().byId("inputFirstName").getValue(),
 				LastName: this.getView().byId("inputLastName").getValue(),
 				Nickname: this.getView().byId("inputNickname").getValue(),
 				EMail: this.getView().byId("inputEmail").getValue(),
 				ContactSet: this.getView().byId("tableContacts").getModel().getProperty("/data")
-			};
+			};*/
 
 			this.getModel().setHeaders({
 				"X-Requested-With": "X"
