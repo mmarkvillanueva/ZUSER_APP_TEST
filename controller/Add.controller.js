@@ -156,14 +156,16 @@ sap.ui.define([
 			MessageToast.show(sMessage, {
 				closeOnBrowserNavigation: false
 			});
-
-			this.getView().byId("inputUserName").setValue();
+			
+			Validation.clearInputData(this);
+			
+/*			this.getView().byId("inputUserName").setValue();
 			this.getView().byId("inputFirstName").setValue();
 			this.getView().byId("inputLastName").setValue();
 			this.getView().byId("inputNickname").setValue();
 			this.getView().byId("inputEmail").setValue();
 			this.getView().byId("tableContacts").unbindItems();
-
+*/
 		},
 
 		_onCreateError: function(error) {
