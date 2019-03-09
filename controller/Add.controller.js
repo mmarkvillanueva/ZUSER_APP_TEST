@@ -88,6 +88,7 @@ sap.ui.define([
 		 * @public
 		 */
 		onNavBack: function() {
+			var bTest = Validation.hasInputData(this);
 			Validation.cancelView(this);
 		},
 

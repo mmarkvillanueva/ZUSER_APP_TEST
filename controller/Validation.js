@@ -87,6 +87,22 @@ sap.ui.define([
 			oController.getView().byId("tableContacts").unbindItems();
 
 		},
+		
+		hasInputData: function(oController) {
+			
+			var bHasInputData = false;
+			var oData = this.getInputData(oController);
+			
+			$.each(oData, function(property, value){
+				if(value !== "" && value !== undefined) {
+					bHasInputData = true;
+					return false;
+				}
+			});
+			
+			return bHasInputData;
+			
+		},
 
 		appendMessage: function(sMessage, sType, sError) {
 
