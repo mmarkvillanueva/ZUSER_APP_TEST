@@ -64,7 +64,7 @@ sap.ui.define([
 		
 		getInputData: function(oController) {
 			
-			var oData = {
+			var oDataTmp {
 				UserName: oController.getView().byId("inputUserName").getValue(),
 				FirstName: oController.getView().byId("inputFirstName").getValue(),
 				LastName: oController.getView().byId("inputLastName").getValue(),
@@ -72,6 +72,13 @@ sap.ui.define([
 				EMail: oController.getView().byId("inputEmail").getValue(),
 				ContactSet: oController.getView().byId("tableContacts").getModel().getProperty("/data")
 			};
+
+			var oData = {};
+			$.each(oDataTmp, function(property, value) {
+				if(value !== "" && value !== undefined) {
+					oData[property] = value;
+				}
+			});
 			
 			return oData;
 			
