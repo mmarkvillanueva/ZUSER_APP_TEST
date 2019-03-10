@@ -13,7 +13,6 @@ sap.ui.define([
 		cancelView: function(oController) {
 
 			// Discard new product model
-			debugger;
 			this.clearInputData(oController);
 
 			/*                // Reset all valuestate of input fields
@@ -64,7 +63,7 @@ sap.ui.define([
 		
 		getInputData: function(oController) {
 			
-			var oDataTmp {
+			var oData = {
 				UserName: oController.getView().byId("inputUserName").getValue(),
 				FirstName: oController.getView().byId("inputFirstName").getValue(),
 				LastName: oController.getView().byId("inputLastName").getValue(),
@@ -72,11 +71,11 @@ sap.ui.define([
 				EMail: oController.getView().byId("inputEmail").getValue(),
 				ContactSet: oController.getView().byId("tableContacts").getModel().getProperty("/data")
 			};
-
-			var oData = {};
-			$.each(oDataTmp, function(property, value) {
-				if(value !== "" && value !== undefined) {
-					oData[property] = value;
+			
+			// Remove blank properties
+			$.each(oData, function(property, value) {
+				if(value === "" || value === undefined) {
+					delete oData[property];
 				}
 			});
 			
@@ -93,22 +92,6 @@ sap.ui.define([
 			oController.getView().byId("inputEmail").setValue();
 			oController.getView().byId("tableContacts").unbindItems();
 
-		},
-		
-		hasInputData: function(oController) {
-			
-			var bHasInputData = false;
-			var oData = this.getInputData(oController);
-			
-			$.each(oData, function(property, value){
-				if(value !== "" && value !== undefined) {
-					bHasInputData = true;
-					return false;
-				}
-			});
-			
-			return bHasInputData;
-			
 		},
 
 		appendMessage: function(sMessage, sType, sError) {

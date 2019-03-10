@@ -88,8 +88,27 @@ sap.ui.define([
 		 * @public
 		 */
 		onNavBack: function() {
-			var bTest = Validation.hasInputData(this);
-			Validation.cancelView(this);
+			
+			var that = this,
+				oData = Validation.getInputData(this);
+			
+			if($.isEmptyObject(oData)) {
+				
+				Validation.cancelView(this);
+				
+			} else {
+				
+    			MessageBox.warning(this.getResourceBundle().getText("pendingChangesMessage"), {
+    		    	actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+    		        onClose: function(sAction) {
+    		        	if(sAction === MessageBox.Action.YES) {
+                        	Validation.cancelView(that);
+    		            }
+    		        }
+                });
+				
+			}
+			
 		},
 
 		/**
